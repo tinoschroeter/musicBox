@@ -1,0 +1,4 @@
+namespace: musicbox
+resources:
+  - services.yaml
+  - musicbox.yaml

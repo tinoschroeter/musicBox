@@ -1,0 +1,6 @@
+---
+bases:
+  - config.yaml
+  - ../base
+  - pvc.yaml
+  - ingress.yaml

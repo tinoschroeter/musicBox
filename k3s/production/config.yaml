@@ -1,0 +1,8 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: musicbox-config
+data:
+  MUSIC_DIR: "/data/music"
+  HOST_NAME: "https://musicbox.tino.sh"
