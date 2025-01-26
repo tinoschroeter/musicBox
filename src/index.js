@@ -13,8 +13,10 @@ const RSS = require("feed").Feed;
 
 const musicDir = process.env.MUSIC_DIR || "./music";
 const hostName = process.env.HOST_NAME || "http://localhost:3000";
+
 let working = false;
 const queue = [];
+const urlCache = {};
 
 app.use(cors());
 app.use(express.json());
@@ -70,8 +72,13 @@ app.get("/", (_req, res) => {
 
 app.post("/upload", (req, res) => {
   const { url } = req.body;
-  queue.push(url);
 
+  if (urlCache[url]) {
+    return res.json({ message: `${url} is already available` });
+  }
+
+  urlCache[url] = true;
+  queue.push(url);
   res.json({ message: `${url} is in the queue` });
 });
 
@@ -94,6 +101,7 @@ setInterval(() => {
 
   const url = queue.shift();
   working = true;
+  logger.info("Queue: " + JSON.stringify(queue));
   logger.info(`Extract url: ${url}`);
   exec(
     `cd /data/music/best_songs/ && yt-dlp --embed-metadata --extract-audio --audio-format mp3 ${url} -o '%(title)s.%(ext)s'`,

@@ -18,7 +18,7 @@ document.getElementById("postButton").addEventListener("click", function () {
       },
       body: JSON.stringify({ url: videoUrl }),
     })
-      .then((response) => response.text())
+      .then((response) => response.json())
       .then((data) => {
         console.log("Successfully posted", data);
         statusMessage.textContent = "The URL was successfully posted!";
