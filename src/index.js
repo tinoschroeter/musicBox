@@ -96,7 +96,7 @@ setInterval(() => {
   working = true;
   logger.info(`Extract url: ${url}`);
   exec(
-    `cd /data/music/best_songs && yt-dlp --embed-metadata --extract-audio --audio-format mp3 ${url}`,
+    `cd /data/music/best_songs/ && yt-dlp --embed-metadata --extract-audio --audio-format mp3 ${url} -o '%(title)s.%(ext)s'`,
     (error, stdout, stderr) => {
       if (error) {
         logger.error(`Error: ${error.message}`);
@@ -111,7 +111,7 @@ setInterval(() => {
       logger.info(`Output:\n${stdout}`);
 
       logger.info("start rename_files.sh");
-      exec(`rename_files.sh`, (error, stdout, stderr) => {
+      exec(`rename_files.sh && rename_files.sh`, (error, stdout, stderr) => {
         if (error) {
           logger.error(`Error: ${error.message}`);
           working = false;
