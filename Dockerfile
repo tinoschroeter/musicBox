@@ -1,4 +1,4 @@
-FROM node:22 AS app
+FROM node:24 AS app
 
 RUN apt-get update && apt-get install ffmpeg -y && \
   rm -rf /var/lib/apt/lists/*
